@@ -1,6 +1,6 @@
 package funding
 
-import "github.com/amir-the-h/okex"
+import "github.com/game-for-one/okex"
 
 type (
 	Currency struct {

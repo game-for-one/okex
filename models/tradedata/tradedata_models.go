@@ -3,7 +3,7 @@ package tradedata
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/amir-the-h/okex"
+	"github.com/game-for-one/okex"
 	"strconv"
 	"time"
 )
