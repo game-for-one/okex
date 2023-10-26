@@ -23,15 +23,15 @@ type (
 	Transfer struct {
 		TransID string           `json:"transId"`
 		Ccy     string           `json:"ccy"`
-		Amt     okex.JSONAmount  `json:"amt"`
+		Amt     okex.JSONString  `json:"amt"`
 		From    okex.AccountType `json:"from,string"`
 		To      okex.AccountType `json:"to,string"`
 	}
 	Bill struct {
 		BillID string          `json:"billId"`
 		Ccy    string          `json:"ccy"`
-		Bal    okex.JSONAmount `json:"bal"`
-		BalChg okex.JSONAmount `json:"balChg"`
+		Bal    okex.JSONString `json:"bal"`
+		BalChg okex.JSONString `json:"balChg"`
 		Type   okex.BillType   `json:"type,string"`
 		TS     okex.JSONTime   `json:"ts"`
 	}
@@ -54,7 +54,7 @@ type (
 		From  string            `json:"from"`
 		To    string            `json:"to"`
 		DepId string            `json:"depId"`
-		Amt   okex.JSONAmount   `json:"amt"`
+		Amt   okex.JSONString   `json:"amt"`
 		State okex.DepositState `json:"state,string"`
 		TS    okex.JSONTime     `json:"ts"`
 	}
@@ -62,7 +62,7 @@ type (
 		Ccy   string          `json:"ccy"`
 		Chain string          `json:"chain"`
 		WdID  okex.JSONInt64  `json:"wdId"`
-		Amt   okex.JSONAmount `json:"amt"`
+		Amt   okex.JSONString `json:"amt"`
 	}
 	WithdrawalHistory struct {
 		Ccy   string               `json:"ccy"`
@@ -73,20 +73,20 @@ type (
 		Tag   string               `json:"tag,omitempty"`
 		PmtID string               `json:"pmtId,omitempty"`
 		Memo  string               `json:"memo,omitempty"`
-		Amt   okex.JSONAmount      `json:"amt"`
-		Fee   okex.JSONAmount      `json:"fee"`
+		Amt   okex.JSONString      `json:"amt"`
+		Fee   okex.JSONString      `json:"fee"`
 		WdID  okex.JSONInt64       `json:"wdId"`
 		State okex.WithdrawalState `json:"state,string"`
 		TS    okex.JSONTime        `json:"ts"`
 	}
 	PiggyBank struct {
 		Ccy  string          `json:"ccy"`
-		Amt  okex.JSONAmount `json:"amt"`
+		Amt  okex.JSONString `json:"amt"`
 		Side okex.ActionType `json:"side,string"`
 	}
 	PiggyBankBalance struct {
 		Ccy      string          `json:"ccy"`
-		Amt      okex.JSONAmount `json:"amt"`
-		Earnings okex.JSONAmount `json:"earnings"`
+		Amt      okex.JSONString `json:"amt"`
+		Earnings okex.JSONString `json:"earnings"`
 	}
 )

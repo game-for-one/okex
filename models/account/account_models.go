@@ -6,40 +6,40 @@ import (
 
 type (
 	Balance struct {
-		TotalEq     okex.JSONAmount   `json:"totalEq"`
-		IsoEq       okex.JSONAmount   `json:"isoEq"`
-		AdjEq       okex.JSONAmount   `json:"adjEq,omitempty"`
-		OrdFroz     okex.JSONAmount   `json:"ordFroz,omitempty"`
-		Imr         okex.JSONAmount   `json:"imr,omitempty"`
-		Mmr         okex.JSONAmount   `json:"mmr,omitempty"`
-		MgnRatio    okex.JSONAmount   `json:"mgnRatio,omitempty"`
-		NotionalUsd okex.JSONAmount   `json:"notionalUsd,omitempty"`
+		TotalEq     okex.JSONString   `json:"totalEq"`
+		IsoEq       okex.JSONString   `json:"isoEq"`
+		AdjEq       okex.JSONString   `json:"adjEq,omitempty"`
+		OrdFroz     okex.JSONString   `json:"ordFroz,omitempty"`
+		Imr         okex.JSONString   `json:"imr,omitempty"`
+		Mmr         okex.JSONString   `json:"mmr,omitempty"`
+		MgnRatio    okex.JSONString   `json:"mgnRatio,omitempty"`
+		NotionalUsd okex.JSONString   `json:"notionalUsd,omitempty"`
 		Details     []*BalanceDetails `json:"details,omitempty"`
 		UTime       okex.JSONTime     `json:"uTime"`
 	}
 	BalanceDetails struct {
 		Ccy           string          `json:"ccy"`
-		Eq            okex.JSONAmount `json:"eq"`
-		CashBal       okex.JSONAmount `json:"cashBal"`
-		IsoEq         okex.JSONAmount `json:"isoEq,omitempty"`
-		AvailEq       okex.JSONAmount `json:"availEq,omitempty"`
-		DisEq         okex.JSONAmount `json:"disEq"`
-		AvailBal      okex.JSONAmount `json:"availBal"`
-		FrozenBal     okex.JSONAmount `json:"frozenBal"`
-		OrdFrozen     okex.JSONAmount `json:"ordFrozen"`
-		Liab          okex.JSONAmount `json:"liab,omitempty"`
-		Upl           okex.JSONAmount `json:"upl,omitempty"`
-		UplLib        okex.JSONAmount `json:"uplLib,omitempty"`
-		CrossLiab     okex.JSONAmount `json:"crossLiab,omitempty"`
-		IsoLiab       okex.JSONAmount `json:"isoLiab,omitempty"`
-		MgnRatio      okex.JSONAmount `json:"mgnRatio,omitempty"`
-		Interest      okex.JSONAmount `json:"interest,omitempty"`
-		Twap          okex.JSONAmount `json:"twap,omitempty"`
-		MaxLoan       okex.JSONAmount `json:"maxLoan,omitempty"`
-		EqUsd         okex.JSONAmount `json:"eqUsd"`
-		NotionalLever okex.JSONAmount `json:"notionalLever,omitempty"`
-		StgyEq        okex.JSONAmount `json:"stgyEq"`
-		IsoUpl        okex.JSONAmount `json:"isoUpl,omitempty"`
+		Eq            okex.JSONString `json:"eq"`
+		CashBal       okex.JSONString `json:"cashBal"`
+		IsoEq         okex.JSONString `json:"isoEq,omitempty"`
+		AvailEq       okex.JSONString `json:"availEq,omitempty"`
+		DisEq         okex.JSONString `json:"disEq"`
+		AvailBal      okex.JSONString `json:"availBal"`
+		FrozenBal     okex.JSONString `json:"frozenBal"`
+		OrdFrozen     okex.JSONString `json:"ordFrozen"`
+		Liab          okex.JSONString `json:"liab,omitempty"`
+		Upl           okex.JSONString `json:"upl,omitempty"`
+		UplLib        okex.JSONString `json:"uplLib,omitempty"`
+		CrossLiab     okex.JSONString `json:"crossLiab,omitempty"`
+		IsoLiab       okex.JSONString `json:"isoLiab,omitempty"`
+		MgnRatio      okex.JSONString `json:"mgnRatio,omitempty"`
+		Interest      okex.JSONString `json:"interest,omitempty"`
+		Twap          okex.JSONString `json:"twap,omitempty"`
+		MaxLoan       okex.JSONString `json:"maxLoan,omitempty"`
+		EqUsd         okex.JSONString `json:"eqUsd"`
+		NotionalLever okex.JSONString `json:"notionalLever,omitempty"`
+		StgyEq        okex.JSONString `json:"stgyEq"`
+		IsoUpl        okex.JSONString `json:"isoUpl,omitempty"`
 		UTime         okex.JSONTime   `json:"uTime"`
 	}
 	Position struct {
@@ -50,30 +50,30 @@ type (
 		Ccy         string              `json:"ccy"`
 		PosID       string              `json:"posId"`
 		TradeID     string              `json:"tradeId"`
-		Pos         okex.JSONAmount     `json:"pos"`
-		AvailPos    okex.JSONAmount     `json:"availPos,omitempty"`
-		AvgPx       okex.JSONAmount     `json:"avgPx"`
-		Upl         okex.JSONAmount     `json:"upl"`
-		UplRatio    okex.JSONAmount     `json:"uplRatio"`
-		Lever       okex.JSONAmount     `json:"lever"`
-		LiqPx       okex.JSONAmount     `json:"liqPx,omitempty"`
-		Imr         okex.JSONAmount     `json:"imr,omitempty"`
-		Margin      okex.JSONAmount     `json:"margin,omitempty"`
-		MgnRatio    okex.JSONAmount     `json:"mgnRatio"`
-		Mmr         okex.JSONAmount     `json:"mmr"`
-		Liab        okex.JSONAmount     `json:"liab,omitempty"`
-		Interest    okex.JSONAmount     `json:"interest"`
-		NotionalUsd okex.JSONAmount     `json:"notionalUsd"`
-		ADL         okex.JSONAmount     `json:"adl"`
-		Last        okex.JSONAmount     `json:"last"`
-		DeltaBS     okex.JSONAmount     `json:"deltaBS"`
-		DeltaPA     okex.JSONAmount     `json:"deltaPA"`
-		GammaBS     okex.JSONAmount     `json:"gammaBS"`
-		GammaPA     okex.JSONAmount     `json:"gammaPA"`
-		ThetaBS     okex.JSONAmount     `json:"thetaBS"`
-		ThetaPA     okex.JSONAmount     `json:"thetaPA"`
-		VegaBS      okex.JSONAmount     `json:"vegaBS"`
-		VegaPA      okex.JSONAmount     `json:"vegaPA"`
+		Pos         okex.JSONString     `json:"pos"`
+		AvailPos    okex.JSONString     `json:"availPos,omitempty"`
+		AvgPx       okex.JSONString     `json:"avgPx"`
+		Upl         okex.JSONString     `json:"upl"`
+		UplRatio    okex.JSONString     `json:"uplRatio"`
+		Lever       okex.JSONString     `json:"lever"`
+		LiqPx       okex.JSONString     `json:"liqPx,omitempty"`
+		Imr         okex.JSONString     `json:"imr,omitempty"`
+		Margin      okex.JSONString     `json:"margin,omitempty"`
+		MgnRatio    okex.JSONString     `json:"mgnRatio"`
+		Mmr         okex.JSONString     `json:"mmr"`
+		Liab        okex.JSONString     `json:"liab,omitempty"`
+		Interest    okex.JSONString     `json:"interest"`
+		NotionalUsd okex.JSONString     `json:"notionalUsd"`
+		ADL         okex.JSONString     `json:"adl"`
+		Last        okex.JSONString     `json:"last"`
+		DeltaBS     okex.JSONString     `json:"deltaBS"`
+		DeltaPA     okex.JSONString     `json:"deltaPA"`
+		GammaBS     okex.JSONString     `json:"gammaBS"`
+		GammaPA     okex.JSONString     `json:"gammaPA"`
+		ThetaBS     okex.JSONString     `json:"thetaBS"`
+		ThetaPA     okex.JSONString     `json:"thetaPA"`
+		VegaBS      okex.JSONString     `json:"vegaBS"`
+		VegaPA      okex.JSONString     `json:"vegaPA"`
 		PosSide     okex.PositionSide   `json:"posSide"`
 		MgnMode     okex.MarginMode     `json:"mgnMode"`
 		InstType    okex.InstrumentType `json:"instType"`
@@ -88,23 +88,23 @@ type (
 		BalData   []*BalanceDetails `json:"balData"`
 	}
 	PositionAndAccountRisk struct {
-		AdjEq   okex.JSONAmount                      `json:"adjEq,omitempty"`
+		AdjEq   okex.JSONString                      `json:"adjEq,omitempty"`
 		BalData []*PositionAndAccountRiskBalanceData `json:"balData"`
 		PosData []*PositionAndAccountRiskBalanceData `json:"posData"`
 		TS      okex.JSONTime                        `json:"ts"`
 	}
 	PositionAndAccountRiskBalanceData struct {
 		Ccy   string          `json:"ccy"`
-		Eq    okex.JSONAmount `json:"eq"`
-		DisEq okex.JSONAmount `json:"disEq"`
+		Eq    okex.JSONString `json:"eq"`
+		DisEq okex.JSONString `json:"disEq"`
 	}
 	PositionAndAccountRiskPositionData struct {
 		InstID      string              `json:"instId"`
 		PosCcy      string              `json:"posCcy,omitempty"`
 		Ccy         string              `json:"ccy"`
-		NotionalCcy okex.JSONAmount     `json:"notionalCcy"`
-		Pos         okex.JSONAmount     `json:"pos"`
-		NotionalUsd okex.JSONAmount     `json:"notionalUsd"`
+		NotionalCcy okex.JSONString     `json:"notionalCcy"`
+		Pos         okex.JSONString     `json:"pos"`
+		NotionalUsd okex.JSONString     `json:"notionalUsd"`
 		PosSide     okex.PositionSide   `json:"posSide"`
 		InstType    okex.InstrumentType `json:"instType"`
 		MgnMode     okex.MarginMode     `json:"mgnMode"`
@@ -115,13 +115,13 @@ type (
 		Notes     string              `json:"notes"`
 		BillID    string              `json:"billId"`
 		OrdID     string              `json:"ordId"`
-		BalChg    okex.JSONAmount     `json:"balChg"`
-		PosBalChg okex.JSONAmount     `json:"posBalChg"`
-		Bal       okex.JSONAmount     `json:"bal"`
-		PosBal    okex.JSONAmount     `json:"posBal"`
-		Sz        okex.JSONAmount     `json:"sz"`
-		Pnl       okex.JSONAmount     `json:"pnl"`
-		Fee       okex.JSONAmount     `json:"fee"`
+		BalChg    okex.JSONString     `json:"balChg"`
+		PosBalChg okex.JSONString     `json:"posBalChg"`
+		Bal       okex.JSONString     `json:"bal"`
+		PosBal    okex.JSONString     `json:"posBal"`
+		Sz        okex.JSONString     `json:"sz"`
+		Pnl       okex.JSONString     `json:"pnl"`
+		Fee       okex.JSONString     `json:"fee"`
 		From      okex.AccountType    `json:"from,string"`
 		To        okex.AccountType    `json:"to,string"`
 		InstType  okex.InstrumentType `json:"instType"`
@@ -144,24 +144,24 @@ type (
 	}
 	Leverage struct {
 		InstID  string            `json:"instId"`
-		Lever   okex.JSONAmount   `json:"lever"`
+		Lever   okex.JSONString   `json:"lever"`
 		MgnMode okex.MarginMode   `json:"mgnMode"`
 		PosSide okex.PositionSide `json:"posSide"`
 	}
 	MaxBuySellAmount struct {
 		InstID  string          `json:"instId"`
 		Ccy     string          `json:"ccy"`
-		MaxBuy  okex.JSONAmount `json:"maxBuy"`
-		MaxSell okex.JSONAmount `json:"maxSell"`
+		MaxBuy  okex.JSONString `json:"maxBuy"`
+		MaxSell okex.JSONString `json:"maxSell"`
 	}
 	MaxAvailableTradeAmount struct {
 		InstID    string          `json:"instId"`
-		AvailBuy  okex.JSONAmount `json:"availBuy"`
-		AvailSell okex.JSONAmount `json:"availSell"`
+		AvailBuy  okex.JSONString `json:"availBuy"`
+		AvailSell okex.JSONString `json:"availSell"`
 	}
 	MarginBalanceAmount struct {
 		InstID  string            `json:"instId"`
-		Amt     okex.JSONAmount   `json:"amt"`
+		Amt     okex.JSONString   `json:"amt"`
 		PosSide okex.PositionSide `json:"posSide,string"`
 		Type    okex.CountAction  `json:"type,string"`
 	}
@@ -169,16 +169,16 @@ type (
 		InstID  string          `json:"instId"`
 		MgnCcy  string          `json:"mgnCcy"`
 		Ccy     string          `json:"ccy"`
-		MaxLoan okex.JSONAmount `json:"maxLoan"`
+		MaxLoan okex.JSONString `json:"maxLoan"`
 		MgnMode okex.MarginMode `json:"mgnMode"`
 		Side    okex.OrderSide  `json:"side,string"`
 	}
 	Fee struct {
 		Level    string              `json:"level"`
-		Taker    okex.JSONAmount     `json:"taker"`
-		Maker    okex.JSONAmount     `json:"maker"`
-		Delivery okex.JSONAmount     `json:"delivery,omitempty"`
-		Exercise okex.JSONAmount     `json:"exercise,omitempty"`
+		Taker    okex.JSONString     `json:"taker"`
+		Maker    okex.JSONString     `json:"maker"`
+		Delivery okex.JSONString     `json:"delivery,omitempty"`
+		Exercise okex.JSONString     `json:"exercise,omitempty"`
 		Category okex.FeeCategory    `json:"category,string"`
 		InstType okex.InstrumentType `json:"instType"`
 		TS       okex.JSONTime       `json:"ts"`
@@ -186,21 +186,21 @@ type (
 	InterestAccrued struct {
 		InstID       string          `json:"instId"`
 		Ccy          string          `json:"ccy"`
-		Interest     okex.JSONAmount `json:"interest"`
-		InterestRate okex.JSONAmount `json:"interestRate"`
-		Liab         okex.JSONAmount `json:"liab"`
+		Interest     okex.JSONString `json:"interest"`
+		InterestRate okex.JSONString `json:"interestRate"`
+		Liab         okex.JSONString `json:"liab"`
 		MgnMode      okex.MarginMode `json:"mgnMode"`
 		TS           okex.JSONTime   `json:"ts"`
 	}
 	InterestRate struct {
 		Ccy          string          `json:"ccy"`
-		InterestRate okex.JSONAmount `json:"interestRate"`
+		InterestRate okex.JSONString `json:"interestRate"`
 	}
 	Greek struct {
 		GreeksType string `json:"greeksType"`
 	}
 	MaxWithdrawal struct {
 		Ccy   string          `json:"ccy"`
-		MaxWd okex.JSONAmount `json:"maxWd"`
+		MaxWd okex.JSONString `json:"maxWd"`
 	}
 )

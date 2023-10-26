@@ -50,7 +50,7 @@ type (
 	WithdrawalDestination uint8
 	WithdrawalState       int8
 
-	JSONAmount string
+	JSONString string
 	JSONInt64  int64
 	JSONTime   time.Time
 
@@ -314,7 +314,7 @@ func (t *JSONTime) UnmarshalJSON(s []byte) (err error) {
 	*(*time.Time)(t) = time.UnixMilli(q)
 	return
 }
-func (t *JSONAmount) UnmarshalJSON(s []byte) (err error) {
+func (t *JSONString) UnmarshalJSON(s []byte) (err error) {
 	r := strings.Replace(string(s), `"`, ``, -1)
 	if r == "" {
 		return

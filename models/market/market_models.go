@@ -12,30 +12,30 @@ import (
 type (
 	Ticker struct {
 		InstID    string              `json:"instId"`
-		Last      okex.JSONAmount     `json:"last"`
-		LastSz    okex.JSONAmount     `json:"lastSz"`
-		AskPx     okex.JSONAmount     `json:"askPx"`
-		AskSz     okex.JSONAmount     `json:"askSz"`
-		BidPx     okex.JSONAmount     `json:"bidPx"`
-		BidSz     okex.JSONAmount     `json:"bidSz"`
-		Open24h   okex.JSONAmount     `json:"open24h"`
-		High24h   okex.JSONAmount     `json:"high24h"`
-		Low24h    okex.JSONAmount     `json:"low24h"`
-		VolCcy24h okex.JSONAmount     `json:"volCcy24h"`
-		Vol24h    okex.JSONAmount     `json:"vol24h"`
-		SodUtc0   okex.JSONAmount     `json:"sodUtc0"`
-		SodUtc8   okex.JSONAmount     `json:"sodUtc8"`
+		Last      okex.JSONString     `json:"last"`
+		LastSz    okex.JSONString     `json:"lastSz"`
+		AskPx     okex.JSONString     `json:"askPx"`
+		AskSz     okex.JSONString     `json:"askSz"`
+		BidPx     okex.JSONString     `json:"bidPx"`
+		BidSz     okex.JSONString     `json:"bidSz"`
+		Open24h   okex.JSONString     `json:"open24h"`
+		High24h   okex.JSONString     `json:"high24h"`
+		Low24h    okex.JSONString     `json:"low24h"`
+		VolCcy24h okex.JSONString     `json:"volCcy24h"`
+		Vol24h    okex.JSONString     `json:"vol24h"`
+		SodUtc0   okex.JSONString     `json:"sodUtc0"`
+		SodUtc8   okex.JSONString     `json:"sodUtc8"`
 		InstType  okex.InstrumentType `json:"instType"`
 		TS        okex.JSONTime       `json:"ts"`
 	}
 	IndexTicker struct {
 		InstID  string          `json:"instId"`
-		IdxPx   okex.JSONAmount `json:"idxPx"`
-		High24h okex.JSONAmount `json:"high24h"`
-		Low24h  okex.JSONAmount `json:"low24h"`
-		Open24h okex.JSONAmount `json:"open24h"`
-		SodUtc0 okex.JSONAmount `json:"sodUtc0"`
-		SodUtc8 okex.JSONAmount `json:"sodUtc8"`
+		IdxPx   okex.JSONString `json:"idxPx"`
+		High24h okex.JSONString `json:"high24h"`
+		Low24h  okex.JSONString `json:"low24h"`
+		Open24h okex.JSONString `json:"open24h"`
+		SodUtc0 okex.JSONString `json:"sodUtc0"`
+		SodUtc8 okex.JSONString `json:"sodUtc8"`
 		TS      okex.JSONTime   `json:"ts"`
 	}
 	OrderBook struct {
@@ -73,29 +73,29 @@ type (
 	}
 	Trade struct {
 		InstID  string          `json:"instId"`
-		TradeID okex.JSONAmount `json:"tradeId"`
-		Px      okex.JSONAmount `json:"px"`
-		Sz      okex.JSONAmount `json:"sz"`
+		TradeID okex.JSONString `json:"tradeId"`
+		Px      okex.JSONString `json:"px"`
+		Sz      okex.JSONString `json:"sz"`
 		Side    okex.TradeSide  `json:"side"`
 		TS      okex.JSONTime   `json:"ts"`
 	}
 	TotalVolume24H struct {
-		VolUsd okex.JSONAmount `json:"volUsd"`
-		VolCny okex.JSONAmount `json:"volCny"`
+		VolUsd okex.JSONString `json:"volUsd"`
+		VolCny okex.JSONString `json:"volCny"`
 		TS     okex.JSONTime   `json:"ts"`
 	}
 	IndexComponent struct {
 		Index      string          `json:"index"`
-		Last       okex.JSONAmount `json:"last"`
+		Last       okex.JSONString `json:"last"`
 		Components []*Component    `json:"components"`
 		TS         okex.JSONTime   `json:"ts"`
 	}
 	Component struct {
 		Exch   string          `json:"exch"`
 		Symbol string          `json:"symbol"`
-		SymPx  okex.JSONAmount `json:"symPx"`
-		Wgt    okex.JSONAmount `json:"wgt"`
-		CnvPx  okex.JSONAmount `json:"cnvPx"`
+		SymPx  okex.JSONString `json:"symPx"`
+		Wgt    okex.JSONString `json:"wgt"`
+		CnvPx  okex.JSONString `json:"cnvPx"`
 	}
 )
 
