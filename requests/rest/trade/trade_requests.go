@@ -12,8 +12,8 @@ type (
 		ClOrdID    string            `json:"clOrdId,omitempty"`
 		Tag        string            `json:"tag,omitempty"`
 		ReduceOnly bool              `json:"reduceOnly,omitempty"`
-		Sz         float64           `json:"sz,string"`
-		Px         float64           `json:"px,omitempty,string"`
+		Sz         string            `json:"sz,string"`
+		Px         string            `json:"px,omitempty,string"`
 		TdMode     okex.TradeMode    `json:"tdMode"`
 		Side       okex.OrderSide    `json:"side"`
 		PosSide    okex.PositionSide `json:"posSide,omitempty"`
@@ -27,14 +27,14 @@ type (
 		ClOrdID string `json:"clOrdId,omitempty"`
 	}
 	AmendOrder struct {
-		ID        string  `json:"-"`
-		InstID    string  `json:"instId"`
-		OrdID     string  `json:"ordId,omitempty"`
-		ClOrdID   string  `json:"clOrdId,omitempty"`
-		ReqID     string  `json:"reqId,omitempty"`
-		NewSz     int64   `json:"newSz,omitempty,string"`
-		NewPx     float64 `json:"newPx,omitempty,string"`
-		CxlOnFail bool    `json:"cxlOnFail,omitempty"`
+		ID        string `json:"-"`
+		InstID    string `json:"instId"`
+		OrdID     string `json:"ordId,omitempty"`
+		ClOrdID   string `json:"clOrdId,omitempty"`
+		ReqID     string `json:"reqId,omitempty"`
+		NewSz     int64  `json:"newSz,omitempty,string"`
+		NewPx     string `json:"newPx,omitempty,string"`
+		CxlOnFail bool   `json:"cxlOnFail,omitempty"`
 	}
 	ClosePosition struct {
 		InstID  string            `json:"instId"`
@@ -50,9 +50,9 @@ type (
 	OrderList struct {
 		Uly      string              `json:"uly,omitempty"`
 		InstID   string              `json:"instId,omitempty"`
-		After    float64             `json:"after,omitempty,string"`
-		Before   float64             `json:"before,omitempty,string"`
-		Limit    float64             `json:"limit,omitempty,string"`
+		After    string              `json:"after,omitempty,string"`
+		Before   string              `json:"before,omitempty,string"`
+		Limit    string              `json:"limit,omitempty,string"`
 		InstType okex.InstrumentType `json:"instType,omitempty"`
 		OrdType  okex.OrderType      `json:"ordType,omitempty"`
 		State    okex.OrderState     `json:"state,omitempty"`
@@ -61,9 +61,9 @@ type (
 		Uly      string              `json:"uly,omitempty"`
 		InstID   string              `json:"instId,omitempty"`
 		OrdID    string              `json:"ordId,omitempty"`
-		After    float64             `json:"after,omitempty,string"`
-		Before   float64             `json:"before,omitempty,string"`
-		Limit    float64             `json:"limit,omitempty,string"`
+		After    string              `json:"after,omitempty,string"`
+		Before   string              `json:"before,omitempty,string"`
+		Limit    string              `json:"limit,omitempty,string"`
 		InstType okex.InstrumentType `json:"instType,omitempty"`
 	}
 	PlaceAlgoOrder struct {
@@ -82,18 +82,18 @@ type (
 		TWAPOrder
 	}
 	StopOrder struct {
-		TpTriggerPx float64 `json:"tpTriggerPx,string,omitempty"`
-		TpOrdPx     float64 `json:"tpOrdPx,string,omitempty"`
-		SlTriggerPx float64 `json:"slTriggerPx,string,omitempty"`
-		SlOrdPx     float64 `json:"slOrdPx,string,omitempty"`
+		TpTriggerPx string `json:"tpTriggerPx,string,omitempty"`
+		TpOrdPx     string `json:"tpOrdPx,string,omitempty"`
+		SlTriggerPx string `json:"slTriggerPx,string,omitempty"`
+		SlOrdPx     string `json:"slOrdPx,string,omitempty"`
 	}
 	TriggerOrder struct {
-		TriggerPx float64 `json:"triggerPx,string,omitempty"`
-		OrdPx     float64 `json:"ordPx,string,omitempty"`
+		TriggerPx string `json:"triggerPx,string,omitempty"`
+		OrdPx     string `json:"ordPx,string,omitempty"`
 	}
 	IcebergOrder struct {
-		PxVar    float64 `json:"pxVar,string,omitempty"`
-		PxSpread float64 `json:"pxSpread,string,omitempty"`
+		PxVar    string  `json:"pxVar,string,omitempty"`
+		PxSpread string  `json:"pxSpread,string,omitempty"`
 		SzLimit  int64   `json:"szLimit,string"`
 		PxLimit  float64 `json:"pxLimit,string"`
 	}
@@ -109,9 +109,9 @@ type (
 		InstType okex.InstrumentType `json:"instType,omitempty"`
 		Uly      string              `json:"uly,omitempty"`
 		InstID   string              `json:"instId,omitempty"`
-		After    float64             `json:"after,omitempty,string"`
-		Before   float64             `json:"before,omitempty,string"`
-		Limit    float64             `json:"limit,omitempty,string"`
+		After    string              `json:"after,omitempty,string"`
+		Before   string              `json:"before,omitempty,string"`
+		Limit    string              `json:"limit,omitempty,string"`
 		OrdType  okex.AlgoOrderType  `json:"ordType,omitempty"`
 		State    okex.OrderState     `json:"state,omitempty"`
 	}

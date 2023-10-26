@@ -2,10 +2,11 @@ package rest
 
 import (
 	"encoding/json"
+	"net/http"
+
 	"github.com/game-for-one/okex"
 	requests "github.com/game-for-one/okex/requests/rest/trade"
 	responses "github.com/game-for-one/okex/responses/trade"
-	"net/http"
 )
 
 // Trade
@@ -24,15 +25,9 @@ func NewTrade(c *ClientRest) *Trade {
 // You can place an order only if you have sufficient funds.
 //
 // https://www.okex.com/docs-v5/en/#rest-api-trade-get-positions
-func (c *Trade) PlaceOrder(req []requests.PlaceOrder) (response responses.PlaceOrder, err error) {
+func (c *Trade) PlaceOrder(req requests.PlaceOrder) (response responses.PlaceOrder, err error) {
 	p := "/api/v5/trade/order"
-	var tmp interface{}
-	tmp = req[0]
-	if len(req) > 1 {
-		tmp = req
-		p = "/api/trade/batch-orders"
-	}
-	m := okex.S2M(tmp)
+	m := okex.S2M(req)
 	res, err := c.client.Do(http.MethodPost, p, true, m)
 	if err != nil {
 		return
