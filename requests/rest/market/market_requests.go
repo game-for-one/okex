@@ -3,6 +3,9 @@ package market
 import "github.com/game-for-one/okex"
 
 type (
+	GetTicker struct {
+		InstID string `json:"instId"`
+	}
 	GetTickers struct {
 		Uly      string              `json:"uly,omitempty"`
 		InstType okex.InstrumentType `json:"instType"`
