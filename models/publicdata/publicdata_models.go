@@ -6,7 +6,10 @@ import (
 
 type (
 	Instrument struct {
-		InstID    string               `json:"instId"`
+		InstType   okex.InstrumentType `json:"instType"`
+		InstID     string              `json:"instId"`
+		InstFamily string              `json:"instFamily,omitempty"`
+
 		Uly       string               `json:"uly,omitempty"`
 		BaseCcy   string               `json:"baseCcy,omitempty"`
 		QuoteCcy  string               `json:"quoteCcy,omitempty"`
@@ -19,14 +22,19 @@ type (
 		LotSz     okex.JSONFloat64     `json:"lotSz,omitempty"`
 		MinSz     okex.JSONFloat64     `json:"minSz,omitempty"`
 		Lever     okex.JSONFloat64     `json:"lever"`
-		InstType  okex.InstrumentType  `json:"instType"`
-		Category  okex.FeeCategory     `json:"category,string"`
 		OptType   okex.OptionType      `json:"optType,omitempty"`
 		ListTime  okex.JSONTime        `json:"listTime"`
 		ExpTime   okex.JSONTime        `json:"expTime,omitempty"`
 		CtType    okex.ContractType    `json:"ctType,omitempty"`
 		Alias     okex.AliasType       `json:"alias,omitempty"`
 		State     okex.InstrumentState `json:"state"`
+
+		MaxLmSz      okex.JSONFloat64 `json:"maxLmtSz,omitempty"`
+		MaxMkSz      okex.JSONFloat64 `json:"maxMktSz,omitempty"`
+		MaxTwapSz    okex.JSONFloat64 `json:"maxTwapSz,omitempty"`
+		MaxIcebergSz okex.JSONFloat64 `json:"maxIcebergSz,omitempty"`
+		MaxTriggerSz okex.JSONFloat64 `json:"maxTriggerSz,omitempty"`
+		MaxStopSz    okex.JSONFloat64 `json:"maxStopSz,omitempty"`
 	}
 	DeliveryExerciseHistory struct {
 		Details []*DeliveryExerciseHistoryDetails `json:"details"`
