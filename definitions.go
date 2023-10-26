@@ -50,9 +50,9 @@ type (
 	WithdrawalDestination uint8
 	WithdrawalState       int8
 
-	JSONFloat64 float64
-	JSONInt64   int64
-	JSONTime    time.Time
+	JSONAmount string
+	JSONInt64  int64
+	JSONTime   time.Time
 
 	ClientError error
 )
@@ -314,17 +314,12 @@ func (t *JSONTime) UnmarshalJSON(s []byte) (err error) {
 	*(*time.Time)(t) = time.UnixMilli(q)
 	return
 }
-func (t *JSONFloat64) UnmarshalJSON(s []byte) (err error) {
+func (t *JSONAmount) UnmarshalJSON(s []byte) (err error) {
 	r := strings.Replace(string(s), `"`, ``, -1)
 	if r == "" {
 		return
 	}
 
-	q, err := strconv.ParseFloat(r, 64)
-	if err != nil {
-		return err
-	}
-	*(*float64)(t) = q
 	return
 }
 func (t *JSONInt64) UnmarshalJSON(s []byte) (err error) {
