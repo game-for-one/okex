@@ -92,10 +92,10 @@ type (
 		OrdPx     string `json:"ordPx,string,omitempty"`
 	}
 	IcebergOrder struct {
-		PxVar    string  `json:"pxVar,string,omitempty"`
-		PxSpread string  `json:"pxSpread,string,omitempty"`
-		SzLimit  int64   `json:"szLimit,string"`
-		PxLimit  float64 `json:"pxLimit,string"`
+		PxVar    string `json:"pxVar,string,omitempty"`
+		PxSpread string `json:"pxSpread,string,omitempty"`
+		SzLimit  int64  `json:"szLimit,string"`
+		PxLimit  string `json:"pxLimit"`
 	}
 	TWAPOrder struct {
 		IcebergOrder

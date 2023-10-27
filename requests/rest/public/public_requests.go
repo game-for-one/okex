@@ -35,9 +35,9 @@ type (
 		ExpTime string `json:"expTime,omitempty"`
 	}
 	GetDiscountRateAndInterestFreeQuota struct {
-		Uly        string  `json:"uly"`
-		Ccy        string  `json:"ccy,omitempty"`
-		DiscountLv float64 `json:"discountLv,string"`
+		Uly        string `json:"uly"`
+		Ccy        string `json:"ccy,omitempty"`
+		DiscountLv string `json:"discountLv"`
 	}
 	GetLiquidationOrders struct {
 		InstID   string              `json:"instId,omitempty"`

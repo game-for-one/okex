@@ -3,9 +3,10 @@ package tradedata
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/game-for-one/okex"
 	"strconv"
 	"time"
+
+	"github.com/game-for-one/okex"
 )
 
 type (
@@ -15,47 +16,47 @@ type (
 		Spot     []string `json:"spot"`
 	}
 	TakerVolume struct {
-		SellVol float64
-		BuyVol  float64
+		SellVol string
+		BuyVol  string
 		TS      okex.JSONTime
 	}
 	Ratio struct {
-		Ratio float64
+		Ratio string
 		TS    okex.JSONTime
 	}
 	InterestAndVolumeRatio struct {
-		Oi  float64
-		Vol float64
+		Oi  string
+		Vol string
 		TS  okex.JSONTime
 	}
 	PutCallRatio struct {
-		OiRatio  float64
-		VolRatio float64
+		OiRatio  string
+		VolRatio string
 		TS       okex.JSONTime
 	}
 	InterestAndVolumeExpiry struct {
-		CallOI  float64
-		PutOI   float64
-		CallVol float64
-		PutVol  float64
+		CallOI  string
+		PutOI   string
+		CallVol string
+		PutVol  string
 		ExpTime okex.JSONTime
 		TS      okex.JSONTime
 	}
 	InterestAndVolumeStrike struct {
-		Strike  float64
-		CallOI  float64
-		PutOI   float64
-		CallVol float64
-		PutVol  float64
+		Strike  string
+		CallOI  string
+		PutOI   string
+		CallVol string
+		PutVol  string
 		TS      okex.JSONTime
 	}
 	TakerFlow struct {
-		CallBuyVol   float64
-		CallSellVol  float64
-		PutBuyVol    float64
-		PutSellVol   float64
-		CallBlockVol float64
-		PutBlockVol  float64
+		CallBuyVol   string
+		CallSellVol  string
+		PutBuyVol    string
+		PutSellVol   string
+		CallBlockVol string
+		PutBlockVol  string
 		TS           okex.JSONTime
 	}
 )
@@ -81,15 +82,8 @@ func (c *TakerVolume) UnmarshalJSON(buf []byte) error {
 	}
 	*(*time.Time)(&c.TS) = time.UnixMilli(timestamp)
 
-	c.SellVol, err = strconv.ParseFloat(sellVol, 64)
-	if err != nil {
-		return err
-	}
-
-	c.BuyVol, err = strconv.ParseFloat(buyVol, 64)
-	if err != nil {
-		return err
-	}
+	c.SellVol = sellVol
+	c.BuyVol = buyVol
 
 	return nil
 }
@@ -115,10 +109,7 @@ func (c *Ratio) UnmarshalJSON(buf []byte) error {
 	}
 	*(*time.Time)(&c.TS) = time.UnixMilli(timestamp)
 
-	c.Ratio, err = strconv.ParseFloat(ratio, 64)
-	if err != nil {
-		return err
-	}
+	c.Ratio = ratio
 
 	return nil
 }
@@ -145,16 +136,10 @@ func (c *InterestAndVolumeRatio) UnmarshalJSON(buf []byte) error {
 	*(*time.Time)(&c.TS) = time.UnixMilli(timestamp)
 
 	if oi != "" {
-		c.Oi, err = strconv.ParseFloat(oi, 64)
-		if err != nil {
-			return err
-		}
+		c.Oi = oi
 	}
 	if vol != "" {
-		c.Vol, err = strconv.ParseFloat(vol, 64)
-		if err != nil {
-			return err
-		}
+		c.Vol = vol
 	}
 
 	return nil
@@ -182,16 +167,10 @@ func (c *PutCallRatio) UnmarshalJSON(buf []byte) error {
 	*(*time.Time)(&c.TS) = time.UnixMilli(timestamp)
 
 	if oi != "" {
-		c.OiRatio, err = strconv.ParseFloat(oi, 64)
-		if err != nil {
-			return err
-		}
+		c.OiRatio = oi
 	}
 	if vol != "" {
-		c.VolRatio, err = strconv.ParseFloat(vol, 64)
-		if err != nil {
-			return err
-		}
+		c.VolRatio = vol
 	}
 
 	return nil
@@ -225,28 +204,16 @@ func (c *InterestAndVolumeExpiry) UnmarshalJSON(buf []byte) error {
 	*(*time.Time)(&c.ExpTime) = exp
 
 	if callOI != "" {
-		c.CallOI, err = strconv.ParseFloat(callOI, 64)
-		if err != nil {
-			return err
-		}
+		c.CallOI = callOI
 	}
 	if putOI != "" {
-		c.PutOI, err = strconv.ParseFloat(putOI, 64)
-		if err != nil {
-			return err
-		}
+		c.PutOI = putOI
 	}
 	if callVol != "" {
-		c.CallVol, err = strconv.ParseFloat(callVol, 64)
-		if err != nil {
-			return err
-		}
+		c.CallVol = callVol
 	}
 	if putVol != "" {
-		c.PutVol, err = strconv.ParseFloat(putVol, 64)
-		if err != nil {
-			return err
-		}
+		c.PutVol = putVol
 	}
 
 	return nil
@@ -274,34 +241,19 @@ func (c *InterestAndVolumeStrike) UnmarshalJSON(buf []byte) error {
 	*(*time.Time)(&c.TS) = time.UnixMilli(timestamp)
 
 	if callOI != "" {
-		c.CallOI, err = strconv.ParseFloat(callOI, 64)
-		if err != nil {
-			return err
-		}
+		c.CallOI = callOI
 	}
 	if putOI != "" {
-		c.PutOI, err = strconv.ParseFloat(putOI, 64)
-		if err != nil {
-			return err
-		}
+		c.PutOI = putOI
 	}
 	if callVol != "" {
-		c.CallVol, err = strconv.ParseFloat(callVol, 64)
-		if err != nil {
-			return err
-		}
+		c.CallVol = callVol
 	}
 	if putVol != "" {
-		c.PutVol, err = strconv.ParseFloat(putVol, 64)
-		if err != nil {
-			return err
-		}
+		c.PutVol = putVol
 	}
 	if strike != "" {
-		c.Strike, err = strconv.ParseFloat(strike, 64)
-		if err != nil {
-			return err
-		}
+		c.Strike = strike
 	}
 
 	return nil
@@ -329,40 +281,22 @@ func (c *TakerFlow) UnmarshalJSON(buf []byte) error {
 	*(*time.Time)(&c.TS) = time.UnixMilli(timestamp)
 
 	if callBuyVol != "" {
-		c.CallBlockVol, err = strconv.ParseFloat(callBuyVol, 64)
-		if err != nil {
-			return err
-		}
+		c.CallBlockVol = callBuyVol
 	}
 	if callSellVol != "" {
-		c.CallSellVol, err = strconv.ParseFloat(callSellVol, 64)
-		if err != nil {
-			return err
-		}
+		c.CallSellVol = callSellVol
 	}
 	if putBuyVol != "" {
-		c.PutBuyVol, err = strconv.ParseFloat(putBuyVol, 64)
-		if err != nil {
-			return err
-		}
+		c.PutBuyVol = putBuyVol
 	}
 	if putSellVol != "" {
-		c.PutSellVol, err = strconv.ParseFloat(putSellVol, 64)
-		if err != nil {
-			return err
-		}
+		c.PutSellVol = putSellVol
 	}
 	if callBlockVol != "" {
-		c.CallBuyVol, err = strconv.ParseFloat(callBlockVol, 64)
-		if err != nil {
-			return err
-		}
+		c.CallBuyVol = callBlockVol
 	}
 	if putBlockVol != "" {
-		c.PutBuyVol, err = strconv.ParseFloat(putBlockVol, 64)
-		if err != nil {
-			return err
-		}
+		c.PutBuyVol = putBlockVol
 	}
 
 	return nil

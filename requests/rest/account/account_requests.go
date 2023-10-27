@@ -37,7 +37,7 @@ type (
 	}
 	GetMaxBuySellAmount struct {
 		Ccy    string         `json:"ccy,omitempty"`
-		Px     float64        `json:"px,string,omitempty"`
+		Px     string         `json:"px,omitempty"`
 		InstID []string       `json:"instId"`
 		TdMode okex.TradeMode `json:"tdMode"`
 	}
@@ -49,7 +49,7 @@ type (
 	}
 	IncreaseDecreaseMargin struct {
 		InstID     string            `json:"instId"`
-		Amt        float64           `json:"amt,string"`
+		Amt        string            `json:"amt"`
 		PosSide    okex.PositionSide `json:"posSide"`
 		ActionType okex.CountAction  `json:"actionType"`
 	}

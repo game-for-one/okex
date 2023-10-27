@@ -8,7 +8,7 @@ type (
 	}
 	FundsTransfer struct {
 		Ccy      string            `json:"ccy"`
-		Amt      float64           `json:"amt,string"`
+		Amt      string            `json:"amt"`
 		SubAcct  string            `json:"subAcct,omitempty"`
 		InstID   string            `json:"instID,omitempty"`
 		ToInstID string            `json:"instId,omitempty"`
@@ -38,8 +38,8 @@ type (
 		Chain  string                     `json:"chain,omitempty"`
 		ToAddr string                     `json:"toAddr"`
 		Pwd    string                     `json:"pwd"`
-		Amt    float64                    `json:"amt,string"`
-		Fee    float64                    `json:"fee,string"`
+		Amt    string                     `json:"amt"`
+		Fee    string                     `json:"fee"`
 		Dest   okex.WithdrawalDestination `json:"dest,string"`
 	}
 	GetWithdrawalHistory struct {

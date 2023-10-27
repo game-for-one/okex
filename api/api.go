@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+
 	"github.com/game-for-one/okex"
 	"github.com/game-for-one/okex/api/rest"
 	"github.com/game-for-one/okex/api/ws"

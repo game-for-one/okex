@@ -42,7 +42,7 @@ type (
 		Ccy            string           `json:"ccy"`
 		FromSubAccount string           `json:"fromSubAccount"`
 		ToSubAccount   string           `json:"tiSubAccount"`
-		Amt            float64          `json:"amt,string"`
+		Amt            string           `json:"amt"`
 		From           okex.AccountType `json:"from,string"`
 		To             okex.AccountType `json:"to,string"`
 	}
