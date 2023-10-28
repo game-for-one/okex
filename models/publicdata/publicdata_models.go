@@ -15,13 +15,13 @@ type (
 		QuoteCcy  string               `json:"quoteCcy,omitempty"`
 		SettleCcy string               `json:"settleCcy,omitempty"`
 		CtValCcy  string               `json:"ctValCcy,omitempty"`
-		CtVal     okex.JSONString      `json:"ctVal,omitempty"`
-		CtMult    okex.JSONString      `json:"ctMult,omitempty"`
-		Stk       okex.JSONString      `json:"stk,omitempty"`
-		TickSz    okex.JSONString      `json:"tickSz,omitempty"`
-		LotSz     okex.JSONString      `json:"lotSz,omitempty"`
-		MinSz     okex.JSONString      `json:"minSz,omitempty"`
-		Lever     okex.JSONString      `json:"lever"`
+		CtVal     string               `json:"ctVal,omitempty"`
+		CtMult    string               `json:"ctMult,omitempty"`
+		Stk       string               `json:"stk,omitempty"`
+		TickSz    string               `json:"tickSz,omitempty"`
+		LotSz     string               `json:"lotSz,omitempty"`
+		MinSz     string               `json:"minSz,omitempty"`
+		Lever     string               `json:"lever"`
 		OptType   okex.OptionType      `json:"optType,omitempty"`
 		ListTime  okex.JSONTime        `json:"listTime"`
 		ExpTime   okex.JSONTime        `json:"expTime,omitempty"`
@@ -29,12 +29,12 @@ type (
 		Alias     okex.AliasType       `json:"alias,omitempty"`
 		State     okex.InstrumentState `json:"state"`
 
-		MaxLmSz      okex.JSONString `json:"maxLmtSz,omitempty"`
-		MaxMkSz      okex.JSONString `json:"maxMktSz,omitempty"`
-		MaxTwapSz    okex.JSONString `json:"maxTwapSz,omitempty"`
-		MaxIcebergSz okex.JSONString `json:"maxIcebergSz,omitempty"`
-		MaxTriggerSz okex.JSONString `json:"maxTriggerSz,omitempty"`
-		MaxStopSz    okex.JSONString `json:"maxStopSz,omitempty"`
+		MaxLmSz      string `json:"maxLmtSz,omitempty"`
+		MaxMkSz      string `json:"maxMktSz,omitempty"`
+		MaxTwapSz    string `json:"maxTwapSz,omitempty"`
+		MaxIcebergSz string `json:"maxIcebergSz,omitempty"`
+		MaxTriggerSz string `json:"maxTriggerSz,omitempty"`
+		MaxStopSz    string `json:"maxStopSz,omitempty"`
 	}
 	DeliveryExerciseHistory struct {
 		Details []*DeliveryExerciseHistoryDetails `json:"details"`
@@ -42,59 +42,59 @@ type (
 	}
 	DeliveryExerciseHistoryDetails struct {
 		InstID string                    `json:"instId"`
-		Px     okex.JSONString           `json:"px"`
+		Px     string                    `json:"px"`
 		Type   okex.DeliveryExerciseType `json:"type"`
 	}
 	OpenInterest struct {
 		InstID   string              `json:"instId"`
-		Oi       okex.JSONString     `json:"oi"`
-		OiCcy    okex.JSONString     `json:"oiCcy"`
+		Oi       string              `json:"oi"`
+		OiCcy    string              `json:"oiCcy"`
 		InstType okex.InstrumentType `json:"instType"`
 		TS       okex.JSONTime       `json:"ts"`
 	}
 	FundingRate struct {
 		InstID          string              `json:"instId"`
 		InstType        okex.InstrumentType `json:"instType"`
-		FundingRate     okex.JSONString     `json:"fundingRate"`
-		NextFundingRate okex.JSONString     `json:"NextFundingRate"`
+		FundingRate     string              `json:"fundingRate"`
+		NextFundingRate string              `json:"NextFundingRate"`
 		FundingTime     okex.JSONTime       `json:"fundingTime"`
 		NextFundingTime okex.JSONTime       `json:"nextFundingTime"`
 	}
 	LimitPrice struct {
 		InstID   string              `json:"instId"`
 		InstType okex.InstrumentType `json:"instType"`
-		BuyLmt   okex.JSONString     `json:"buyLmt"`
-		SellLmt  okex.JSONString     `json:"sellLmt"`
+		BuyLmt   string              `json:"buyLmt"`
+		SellLmt  string              `json:"sellLmt"`
 		TS       okex.JSONTime       `json:"ts"`
 	}
 	EstimatedDeliveryExercisePrice struct {
 		InstID   string              `json:"instId"`
 		InstType okex.InstrumentType `json:"instType"`
-		SettlePx okex.JSONString     `json:"settlePx"`
+		SettlePx string              `json:"settlePx"`
 		TS       okex.JSONTime       `json:"ts"`
 	}
 	OptionMarketData struct {
 		InstID   string              `json:"instId"`
 		Uly      string              `json:"uly"`
 		InstType okex.InstrumentType `json:"instType"`
-		Delta    okex.JSONString     `json:"delta"`
-		Gamma    okex.JSONString     `json:"gamma"`
-		Vega     okex.JSONString     `json:"vega"`
-		Theta    okex.JSONString     `json:"theta"`
-		DeltaBS  okex.JSONString     `json:"deltaBS"`
-		GammaBS  okex.JSONString     `json:"gammaBS"`
-		VegaBS   okex.JSONString     `json:"vegaBS"`
-		ThetaBS  okex.JSONString     `json:"thetaBS"`
-		Lever    okex.JSONString     `json:"lever"`
-		MarkVol  okex.JSONString     `json:"markVol"`
-		BidVol   okex.JSONString     `json:"bidVol"`
-		AskVol   okex.JSONString     `json:"askVol"`
-		RealVol  okex.JSONString     `json:"realVol"`
+		Delta    string              `json:"delta"`
+		Gamma    string              `json:"gamma"`
+		Vega     string              `json:"vega"`
+		Theta    string              `json:"theta"`
+		DeltaBS  string              `json:"deltaBS"`
+		GammaBS  string              `json:"gammaBS"`
+		VegaBS   string              `json:"vegaBS"`
+		ThetaBS  string              `json:"thetaBS"`
+		Lever    string              `json:"lever"`
+		MarkVol  string              `json:"markVol"`
+		BidVol   string              `json:"bidVol"`
+		AskVol   string              `json:"askVol"`
+		RealVol  string              `json:"realVol"`
 		TS       okex.JSONTime       `json:"ts"`
 	}
 	GetDiscountRateAndInterestFreeQuota struct {
 		Ccy          string          `json:"ccy"`
-		Amt          okex.JSONString `json:"amt"`
+		Amt          string          `json:"amt"`
 		DiscountLv   okex.JSONInt64  `json:"discountLv"`
 		DiscountInfo []*DiscountInfo `json:"discountInfo"`
 	}
@@ -110,22 +110,22 @@ type (
 		InstID    string                    `json:"instId"`
 		Uly       string                    `json:"uly,omitempty"`
 		InstType  okex.InstrumentType       `json:"instType"`
-		TotalLoss okex.JSONString           `json:"totalLoss"`
+		TotalLoss string                    `json:"totalLoss"`
 		Details   []*LiquidationOrderDetail `json:"details"`
 	}
 	LiquidationOrderDetail struct {
 		Ccy     string            `json:"ccy,omitempty"`
 		Side    okex.OrderSide    `json:"side"`
 		OosSide okex.PositionSide `json:"posSide"`
-		BkPx    okex.JSONString   `json:"bkPx"`
-		Sz      okex.JSONString   `json:"sz"`
-		BkLoss  okex.JSONString   `json:"bkLoss"`
+		BkPx    string            `json:"bkPx"`
+		Sz      string            `json:"sz"`
+		BkLoss  string            `json:"bkLoss"`
 		TS      okex.JSONTime     `json:"ts"`
 	}
 	MarkPrice struct {
 		InstID   string              `json:"instId"`
 		InstType okex.InstrumentType `json:"instType"`
-		MarkPx   okex.JSONString     `json:"markPx"`
+		MarkPx   string              `json:"markPx"`
 		TS       okex.JSONTime       `json:"ts"`
 	}
 	PositionTier struct {
@@ -133,14 +133,14 @@ type (
 		Uly          string              `json:"uly,omitempty"`
 		InstType     okex.InstrumentType `json:"instType"`
 		Tier         okex.JSONInt64      `json:"tier"`
-		MinSz        okex.JSONString     `json:"minSz"`
-		MaxSz        okex.JSONString     `json:"maxSz"`
-		Mmr          okex.JSONString     `json:"mmr"`
-		Imr          okex.JSONString     `json:"imr"`
-		OptMgnFactor okex.JSONString     `json:"optMgnFactor,omitempty"`
-		QuoteMaxLoan okex.JSONString     `json:"quoteMaxLoan,omitempty"`
-		BaseMaxLoan  okex.JSONString     `json:"baseMaxLoan,omitempty"`
-		MaxLever     okex.JSONString     `json:"maxLever"`
+		MinSz        string              `json:"minSz"`
+		MaxSz        string              `json:"maxSz"`
+		Mmr          string              `json:"mmr"`
+		Imr          string              `json:"imr"`
+		OptMgnFactor string              `json:"optMgnFactor,omitempty"`
+		QuoteMaxLoan string              `json:"quoteMaxLoan,omitempty"`
+		BaseMaxLoan  string              `json:"baseMaxLoan,omitempty"`
+		MaxLever     string              `json:"maxLever"`
 		TS           okex.JSONTime       `json:"ts"`
 	}
 	InterestRateAndLoanQuota struct {
@@ -149,14 +149,14 @@ type (
 		Regular []*InterestRateAndLoanUser  `json:"regular"`
 	}
 	InterestRateAndLoanBasic struct {
-		Ccy   string          `json:"ccy"`
-		Rate  okex.JSONString `json:"rate"`
-		Quota okex.JSONString `json:"quota"`
+		Ccy   string `json:"ccy"`
+		Rate  string `json:"rate"`
+		Quota string `json:"quota"`
 	}
 	InterestRateAndLoanUser struct {
-		Level         string          `json:"level"`
-		IrDiscount    okex.JSONString `json:"irDiscount"`
-		LoanQuotaCoef int             `json:"loanQuotaCoef,string"`
+		Level         string `json:"level"`
+		IrDiscount    string `json:"irDiscount"`
+		LoanQuotaCoef int    `json:"loanQuotaCoef,string"`
 	}
 	State struct {
 		Title       string        `json:"title"`

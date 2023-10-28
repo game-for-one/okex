@@ -6,24 +6,24 @@ import (
 
 type (
 	PlaceOrder struct {
-		ClOrdID string          `json:"clOrdId"`
-		Tag     string          `json:"tag"`
-		SMsg    string          `json:"sMsg"`
-		SCode   okex.JSONInt64  `json:"sCode"`
-		OrdID   okex.JSONString `json:"ordId"`
+		ClOrdID string         `json:"clOrdId"`
+		Tag     string         `json:"tag"`
+		SMsg    string         `json:"sMsg"`
+		SCode   okex.JSONInt64 `json:"sCode"`
+		OrdID   string         `json:"ordId"`
 	}
 	CancelOrder struct {
-		OrdID   string          `json:"ordId"`
-		ClOrdID string          `json:"clOrdId"`
-		SMsg    string          `json:"sMsg"`
-		SCode   okex.JSONString `json:"sCode"`
+		OrdID   string `json:"ordId"`
+		ClOrdID string `json:"clOrdId"`
+		SMsg    string `json:"sMsg"`
+		SCode   string `json:"sCode"`
 	}
 	AmendOrder struct {
-		OrdID   string          `json:"ordId"`
-		ClOrdID string          `json:"clOrdId"`
-		ReqID   string          `json:"reqId"`
-		SMsg    string          `json:"sMsg"`
-		SCode   okex.JSONString `json:"sCode"`
+		OrdID   string `json:"ordId"`
+		ClOrdID string `json:"clOrdId"`
+		ReqID   string `json:"reqId"`
+		SMsg    string `json:"sMsg"`
+		SCode   string `json:"sCode"`
 	}
 	ClosePosition struct {
 		InstID  string            `json:"instId"`
@@ -39,21 +39,21 @@ type (
 		Category    string              `json:"category"`
 		FeeCcy      string              `json:"feeCcy"`
 		RebateCcy   string              `json:"rebateCcy"`
-		Px          okex.JSONString     `json:"px"`
-		Sz          okex.JSONString     `json:"sz"`
-		Pnl         okex.JSONString     `json:"pnl"`
-		AccFillSz   okex.JSONString     `json:"accFillSz"`
-		FillPx      okex.JSONString     `json:"fillPx"`
-		FillSz      okex.JSONString     `json:"fillSz"`
-		FillTime    okex.JSONString     `json:"fillTime"`
-		AvgPx       okex.JSONString     `json:"avgPx"`
-		Lever       okex.JSONString     `json:"lever"`
-		TpTriggerPx okex.JSONString     `json:"tpTriggerPx"`
-		TpOrdPx     okex.JSONString     `json:"tpOrdPx"`
-		SlTriggerPx okex.JSONString     `json:"slTriggerPx"`
-		SlOrdPx     okex.JSONString     `json:"slOrdPx"`
-		Fee         okex.JSONString     `json:"fee"`
-		Rebate      okex.JSONString     `json:"rebate"`
+		Px          string              `json:"px"`
+		Sz          string              `json:"sz"`
+		Pnl         string              `json:"pnl"`
+		AccFillSz   string              `json:"accFillSz"`
+		FillPx      string              `json:"fillPx"`
+		FillSz      string              `json:"fillSz"`
+		FillTime    string              `json:"fillTime"`
+		AvgPx       string              `json:"avgPx"`
+		Lever       string              `json:"lever"`
+		TpTriggerPx string              `json:"tpTriggerPx"`
+		TpOrdPx     string              `json:"tpOrdPx"`
+		SlTriggerPx string              `json:"slTriggerPx"`
+		SlOrdPx     string              `json:"slOrdPx"`
+		Fee         string              `json:"fee"`
+		Rebate      string              `json:"rebate"`
 		State       okex.OrderState     `json:"state"`
 		TdMode      okex.TradeMode      `json:"tdMode"`
 		PosSide     okex.PositionSide   `json:"posSide"`
@@ -70,11 +70,11 @@ type (
 		TradeID  string              `json:"tradeId"`
 		ClOrdID  string              `json:"clOrdId"`
 		BillID   string              `json:"billId"`
-		Tag      okex.JSONString     `json:"tag"`
-		FillPx   okex.JSONString     `json:"fillPx"`
-		FillSz   okex.JSONString     `json:"fillSz"`
-		FeeCcy   okex.JSONString     `json:"feeCcy"`
-		Fee      okex.JSONString     `json:"fee"`
+		Tag      string              `json:"tag"`
+		FillPx   string              `json:"fillPx"`
+		FillSz   string              `json:"fillSz"`
+		FeeCcy   string              `json:"feeCcy"`
+		Fee      string              `json:"fee"`
 		InstType okex.InstrumentType `json:"instType"`
 		Side     okex.OrderSide      `json:"side"`
 		PosSide  okex.PositionSide   `json:"posSide"`
@@ -103,28 +103,28 @@ type (
 		FeeCcy       string              `json:"feeCcy"`
 		RebateCcy    string              `json:"rebateCcy"`
 		TimeInterval string              `json:"timeInterval"`
-		Px           okex.JSONString     `json:"px"`
-		PxVar        okex.JSONString     `json:"pxVar"`
-		PxSpread     okex.JSONString     `json:"pxSpread"`
-		PxLimit      okex.JSONString     `json:"pxLimit"`
-		Sz           okex.JSONString     `json:"sz"`
-		SzLimit      okex.JSONString     `json:"szLimit"`
-		ActualSz     okex.JSONString     `json:"actualSz"`
-		ActualPx     okex.JSONString     `json:"actualPx"`
-		Pnl          okex.JSONString     `json:"pnl"`
-		AccFillSz    okex.JSONString     `json:"accFillSz"`
-		FillPx       okex.JSONString     `json:"fillPx"`
-		FillSz       okex.JSONString     `json:"fillSz"`
-		FillTime     okex.JSONString     `json:"fillTime"`
-		AvgPx        okex.JSONString     `json:"avgPx"`
-		Lever        okex.JSONString     `json:"lever"`
-		TpTriggerPx  okex.JSONString     `json:"tpTriggerPx"`
-		TpOrdPx      okex.JSONString     `json:"tpOrdPx"`
-		SlTriggerPx  okex.JSONString     `json:"slTriggerPx"`
-		SlOrdPx      okex.JSONString     `json:"slOrdPx"`
-		OrdPx        okex.JSONString     `json:"ordPx"`
-		Fee          okex.JSONString     `json:"fee"`
-		Rebate       okex.JSONString     `json:"rebate"`
+		Px           string              `json:"px"`
+		PxVar        string              `json:"pxVar"`
+		PxSpread     string              `json:"pxSpread"`
+		PxLimit      string              `json:"pxLimit"`
+		Sz           string              `json:"sz"`
+		SzLimit      string              `json:"szLimit"`
+		ActualSz     string              `json:"actualSz"`
+		ActualPx     string              `json:"actualPx"`
+		Pnl          string              `json:"pnl"`
+		AccFillSz    string              `json:"accFillSz"`
+		FillPx       string              `json:"fillPx"`
+		FillSz       string              `json:"fillSz"`
+		FillTime     string              `json:"fillTime"`
+		AvgPx        string              `json:"avgPx"`
+		Lever        string              `json:"lever"`
+		TpTriggerPx  string              `json:"tpTriggerPx"`
+		TpOrdPx      string              `json:"tpOrdPx"`
+		SlTriggerPx  string              `json:"slTriggerPx"`
+		SlOrdPx      string              `json:"slOrdPx"`
+		OrdPx        string              `json:"ordPx"`
+		Fee          string              `json:"fee"`
+		Rebate       string              `json:"rebate"`
 		State        okex.OrderState     `json:"state"`
 		TdMode       okex.TradeMode      `json:"tdMode"`
 		ActualSide   okex.PositionSide   `json:"actualSide"`
