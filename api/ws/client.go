@@ -7,12 +7,13 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/game-for-one/okex"
-	"github.com/game-for-one/okex/events"
-	"github.com/gorilla/websocket"
 	"net/http"
 	"sync"
 	"time"
+
+	"github.com/game-for-one/okex"
+	"github.com/game-for-one/okex/events"
+	"github.com/gorilla/websocket"
 )
 
 // ClientWs is the websocket api client
@@ -24,6 +25,7 @@ type ClientWs struct {
 	StructuredEventChan chan interface{}
 	RawEventChan        chan *events.Basic
 	ErrChan             chan *events.Error
+	WSErrChan           chan error
 	SubscribeChan       chan *events.Subscribe
 	UnsubscribeCh       chan *events.Unsubscribe
 	LoginChan           chan *events.Login
@@ -197,12 +199,13 @@ func (c *ClientWs) Send(p bool, op okex.Operation, args []map[string]string, ext
 }
 
 // SetChannels to receive certain events on separate channel
-func (c *ClientWs) SetChannels(errCh chan *events.Error, subCh chan *events.Subscribe, unSub chan *events.Unsubscribe, lCh chan *events.Login, sCh chan *events.Success) {
+func (c *ClientWs) SetChannels(errCh chan *events.Error, subCh chan *events.Subscribe, unSub chan *events.Unsubscribe, lCh chan *events.Login, sCh chan *events.Success, wsErrCh chan error) {
 	c.ErrChan = errCh
 	c.SubscribeChan = subCh
 	c.UnsubscribeCh = unSub
 	c.LoginChan = lCh
 	c.SuccessChan = sCh
+	c.WSErrChan = wsErrCh
 }
 
 // WaitForAuthorization waits for the auth response and try to log in if it was needed
@@ -223,6 +226,18 @@ func (c *ClientWs) WaitForAuthorization() error {
 	return nil
 }
 
+func (c *ClientWs) Close(p bool) error {
+	c.mu[p].Lock()
+	defer c.mu[p].Unlock()
+	if c.conn[p] == nil {
+		return nil
+	}
+	conn := c.conn[p]
+	c.conn[p] = nil
+	c.Authorized = false
+	return conn.Close()
+}
+
 func (c *ClientWs) dial(p bool) error {
 	c.mu[p].Lock()
 	conn, res, err := websocket.DefaultDialer.Dial(string(c.url[p]), nil)
@@ -239,12 +254,14 @@ func (c *ClientWs) dial(p bool) error {
 		err := c.receiver(p)
 		if err != nil {
 			fmt.Printf("receiver error: %v\n", err)
+			c.WSErrChan <- err
 		}
 	}()
 	go func() {
 		err := c.sender(p)
 		if err != nil {
 			fmt.Printf("sender error: %v\n", err)
+			c.WSErrChan <- err
 		}
 	}()
 	c.conn[p] = conn
@@ -326,6 +343,7 @@ func (c *ClientWs) receiver(p bool) error {
 		}
 	}
 }
+
 func (c *ClientWs) sign(method, path string) (string, string) {
 	t := time.Now().UTC().Unix()
 	ts := fmt.Sprint(t)
@@ -335,6 +353,7 @@ func (c *ClientWs) sign(method, path string) (string, string) {
 	h.Write(p)
 	return ts, base64.StdEncoding.EncodeToString(h.Sum(nil))
 }
+
 func (c *ClientWs) handleCancel(msg string) error {
 	go func() {
 		c.DoneChan <- msg
