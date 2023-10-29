@@ -30,20 +30,29 @@ type ClientWs struct {
 	UnsubscribeCh       chan *events.Unsubscribe
 	LoginChan           chan *events.Login
 	SuccessChan         chan *events.Success
-	sendChan            map[bool]chan []byte
+	PrivateSendChan     chan []byte
+	PublicSendChan      chan []byte
 	url                 map[bool]okex.BaseURL
-	conn                map[bool]*websocket.Conn
+	PrivateConn         *websocket.Conn
+	PrivateConnMutex    *sync.RWMutex
+	PublicConn          *websocket.Conn
+	PublicConnMutex     *sync.RWMutex
 	apiKey              string
 	secretKey           []byte
 	passphrase          string
-	lastTransmit        map[bool]*time.Time
-	mu                  map[bool]*sync.RWMutex
-	AuthRequested       *time.Time
-	Authorized          bool
-	Private             *Private
-	Public              *Public
-	Trade               *Trade
-	ctx                 context.Context
+
+	PrivateWriteMutex *sync.Mutex
+	PublicWriteMutex  *sync.Mutex
+
+	lastTransmitMutex *sync.RWMutex
+	lastTransmit      map[bool]*time.Time
+	// mu                  map[bool]*sync.RWMutex
+	AuthRequested *time.Time
+	Authorized    bool
+	Private       *Private
+	Public        *Public
+	Trade         *Trade
+	ctx           context.Context
 }
 
 const (
@@ -63,13 +72,17 @@ func NewClient(ctx context.Context, apiKey, secretKey, passphrase string, url ma
 		ctx:                 ctx,
 		Cancel:              cancel,
 		url:                 url,
-		sendChan:            map[bool]chan []byte{true: make(chan []byte, 3), false: make(chan []byte, 3)},
+		PrivateSendChan:     make(chan []byte, 3),
+		PublicSendChan:      make(chan []byte, 3),
+		PublicConnMutex:     &sync.RWMutex{},
+		PrivateConnMutex:    &sync.RWMutex{},
+		PrivateWriteMutex:   &sync.Mutex{},
+		PublicWriteMutex:    &sync.Mutex{},
 		DoneChan:            make(chan interface{}),
 		StructuredEventChan: make(chan interface{}),
 		RawEventChan:        make(chan *events.Basic),
-		conn:                make(map[bool]*websocket.Conn),
 		lastTransmit:        make(map[bool]*time.Time),
-		mu:                  map[bool]*sync.RWMutex{true: {}, false: {}},
+		lastTransmitMutex:   &sync.RWMutex{},
 	}
 	c.Private = NewPrivate(c)
 	c.Public = NewPublic(c)
@@ -81,7 +94,17 @@ func NewClient(ctx context.Context, apiKey, secretKey, passphrase string, url ma
 //
 // https://www.okex.com/docs-v5/en/#websocket-api-connect
 func (c *ClientWs) Connect(p bool) error {
-	if c.conn[p] != nil {
+	var connExists bool
+	if p {
+		c.PrivateConnMutex.RLock()
+		connExists = c.PrivateConn != nil
+		c.PrivateConnMutex.RUnlock()
+	} else {
+		c.PublicConnMutex.RLock()
+		connExists = c.PublicConn != nil
+		c.PublicConnMutex.RUnlock()
+	}
+	if connExists {
 		return nil
 	}
 	err := c.dial(p)
@@ -194,7 +217,11 @@ func (c *ClientWs) Send(p bool, op okex.Operation, args []map[string]string, ext
 	if err != nil {
 		return err
 	}
-	c.sendChan[p] <- j
+	if p {
+		c.PrivateSendChan <- j
+	} else {
+		c.PublicSendChan <- j
+	}
 	return nil
 }
 
@@ -227,26 +254,35 @@ func (c *ClientWs) WaitForAuthorization() error {
 }
 
 func (c *ClientWs) Close(p bool) error {
-	c.mu[p].Lock()
-	defer c.mu[p].Unlock()
-	if c.conn[p] == nil {
+	var conn *websocket.Conn
+	if p {
+		c.PrivateConnMutex.Lock()
+		conn = c.PrivateConn
+		defer c.PrivateConnMutex.Unlock()
+	} else {
+		c.PublicConnMutex.Lock()
+		conn = c.PublicConn
+		defer c.PublicConnMutex.Unlock()
+	}
+	if conn == nil {
 		return nil
 	}
-	conn := c.conn[p]
-	c.conn[p] = nil
+	if p {
+		c.PrivateConn = nil
+	} else {
+		c.PublicConn = nil
+	}
 	c.Authorized = false
 	return conn.Close()
 }
 
 func (c *ClientWs) dial(p bool) error {
-	c.mu[p].Lock()
 	conn, res, err := websocket.DefaultDialer.Dial(string(c.url[p]), nil)
 	if err != nil {
 		var statusCode int
 		if res != nil {
 			statusCode = res.StatusCode
 		}
-		c.mu[p].Unlock()
 		return fmt.Errorf("error %d: %w", statusCode, err)
 	}
 	defer res.Body.Close()
@@ -264,73 +300,137 @@ func (c *ClientWs) dial(p bool) error {
 			c.WSErrChan <- err
 		}
 	}()
-	c.conn[p] = conn
-	c.mu[p].Unlock()
+	if p {
+		c.PrivateConnMutex.Lock()
+		c.PrivateConn = conn
+		c.PrivateConnMutex.Unlock()
+	} else {
+		c.PublicConnMutex.Lock()
+		c.PublicConn = conn
+		c.PublicConnMutex.Unlock()
+	}
 	return nil
 }
+
+func (c *ClientWs) sendData(p bool, data []byte) error {
+	var conn *websocket.Conn
+	if p {
+		c.PrivateConnMutex.RLock()
+		conn = c.PrivateConn
+		c.PrivateConnMutex.RUnlock()
+	} else {
+		c.PublicConnMutex.RLock()
+		conn = c.PublicConn
+		c.PublicConnMutex.RUnlock()
+	}
+	err := conn.SetWriteDeadline(time.Now().Add(writeWait))
+	if err != nil {
+		return err
+	}
+	if p {
+		c.PrivateWriteMutex.Lock()
+	} else {
+		c.PublicWriteMutex.Lock()
+	}
+	err = conn.WriteMessage(websocket.TextMessage, data)
+	if err != nil {
+		if p {
+			c.PrivateWriteMutex.Unlock()
+		} else {
+			c.PublicWriteMutex.Unlock()
+		}
+		return err
+	}
+	if p {
+		c.PrivateWriteMutex.Unlock()
+	} else {
+		c.PublicWriteMutex.Unlock()
+	}
+	now := time.Now()
+	c.lastTransmit[p] = &now
+	return nil
+}
+
 func (c *ClientWs) sender(p bool) error {
 	ticker := time.NewTicker(time.Millisecond * 300)
 	defer ticker.Stop()
 	for {
 		select {
-		case data := <-c.sendChan[p]:
-			c.mu[p].RLock()
-			err := c.conn[p].SetWriteDeadline(time.Now().Add(writeWait))
-			if err != nil {
-				c.mu[p].RUnlock()
-				return err
-			}
-			w, err := c.conn[p].NextWriter(websocket.TextMessage)
-			if err != nil {
-				c.mu[p].RUnlock()
-				return err
-			}
-			if _, err = w.Write(data); err != nil {
-				c.mu[p].RUnlock()
-				return err
-			}
-			now := time.Now()
-			c.lastTransmit[p] = &now
-			c.mu[p].RUnlock()
-			if err := w.Close(); err != nil {
-				return err
-			}
+		case data := <-c.PrivateSendChan:
+			c.sendData(true, data)
+		case data := <-c.PublicSendChan:
+			c.sendData(false, data)
 		case <-ticker.C:
-			if c.conn[p] != nil && (c.lastTransmit[p] == nil || (c.lastTransmit[p] != nil && time.Since(*c.lastTransmit[p]) > PingPeriod)) {
-				go func() {
-					c.sendChan[p] <- []byte("ping")
-				}()
+			var connExists bool
+			if p {
+				c.PrivateConnMutex.RLock()
+				connExists = c.PrivateConn != nil
+				c.PrivateConnMutex.RUnlock()
+			} else {
+				c.PublicConnMutex.RLock()
+				connExists = c.PublicConn != nil
+				c.PublicConnMutex.RUnlock()
+			}
+
+			if connExists && (c.lastTransmit[p] == nil || (c.lastTransmit[p] != nil && time.Since(*c.lastTransmit[p]) > PingPeriod)) {
+				go func(p bool) {
+					if p {
+						c.PrivateSendChan <- []byte("ping")
+					} else {
+						c.PublicSendChan <- []byte("ping")
+					}
+				}(p)
 			}
 		case <-c.ctx.Done():
 			return c.handleCancel("sender")
 		}
 	}
 }
+
 func (c *ClientWs) receiver(p bool) error {
 	for {
 		select {
 		case <-c.ctx.Done():
 			return c.handleCancel("receiver")
 		default:
-			c.mu[p].RLock()
-			err := c.conn[p].SetReadDeadline(time.Now().Add(pongWait))
-			if err != nil {
-				c.mu[p].RUnlock()
-				return err
+			var conn *websocket.Conn
+			if p {
+				c.PrivateConnMutex.RLock()
+				conn = c.PrivateConn
+			} else {
+				c.PublicConnMutex.RLock()
+				conn = c.PublicConn
 			}
-			mt, data, err := c.conn[p].ReadMessage()
+			err := conn.SetReadDeadline(time.Now().Add(pongWait))
 			if err != nil {
-				c.mu[p].RUnlock()
-				if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
-					return c.conn[p].Close()
+				if p {
+					c.PrivateConnMutex.RUnlock()
+				} else {
+					c.PublicConnMutex.RUnlock()
 				}
 				return err
 			}
-			c.mu[p].RUnlock()
+			mt, data, err := conn.ReadMessage()
+			if err != nil {
+				if p {
+					c.PrivateConnMutex.RUnlock()
+				} else {
+					c.PublicConnMutex.RUnlock()
+				}
+				if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
+					return conn.Close()
+				}
+				return err
+			}
+			if p {
+				c.PrivateConnMutex.RUnlock()
+			} else {
+				c.PublicConnMutex.RUnlock()
+			}
 			now := time.Now()
-			c.mu[p].Lock()
+			c.lastTransmitMutex.Lock()
 			c.lastTransmit[p] = &now
-			c.mu[p].Unlock()
+			c.lastTransmitMutex.Unlock()
 			if mt == websocket.TextMessage && string(data) != "pong" {
 				e := &events.Basic{}
 				if err := json.Unmarshal(data, &e); err != nil {
