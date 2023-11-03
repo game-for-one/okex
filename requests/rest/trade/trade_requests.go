@@ -75,11 +75,12 @@ type (
 		OrdType    okex.AlgoOrderType `json:"ordType"`
 		Sz         int64              `json:"sz,string"`
 		ReduceOnly bool               `json:"reduceOnly,omitempty"`
-		TgtCcy     okex.QuantityType  `json:"tgtCcy,omitempty"`
+		TgtCcy     okex.QuantityType  `json:"tgtCcy,omitempty"` // Only applicable to SPOT traded with Market buy conditional order. Default is quote_ccy for buy, base_ccy for sell
 		StopOrder
 		TriggerOrder
 		IcebergOrder
 		TWAPOrder
+		TrailingStopOrder
 	}
 	StopOrder struct {
 		TpTriggerPx string `json:"tpTriggerPx,string,omitempty"`
@@ -100,6 +101,10 @@ type (
 	TWAPOrder struct {
 		IcebergOrder
 		TimeInterval string `json:"timeInterval"`
+	}
+	TrailingStopOrder struct {
+		CallbackRatio string `json:"callbackRatio,string"` // %
+		ReduceOnly    bool   `json:"reduceOnly"`
 	}
 	CancelAlgoOrder struct {
 		InstID string `json:"instId"`

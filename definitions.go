@@ -202,11 +202,11 @@ const (
 	OrderIOC             = OrderType("ioc")
 	OrderOptimalLimitIoc = OrderType("optimal_limit_ioc")
 
-	AlgoOrderConditional = AlgoOrderType("conditional")
-	AlgoOrderOCO         = AlgoOrderType("oco")
-	AlgoOrderTrigger     = AlgoOrderType("trigger")
-	AlgoOrderIceberg     = AlgoOrderType("iceberg")
-	AlgoOrderTwap        = AlgoOrderType("twap")
+	AlgoOrderConditional  = AlgoOrderType("conditional")
+	AlgoOrderOCO          = AlgoOrderType("oco")
+	AlgoOrderTrigger      = AlgoOrderType("trigger")
+	AlgoOrderTwap         = AlgoOrderType("twap")
+	AlgoOrderTrailingStop = AlgoOrderType("move_order_stop")
 
 	QuantityBaseCcy  = QuantityType("base_ccy")
 	QuantityQuoteCcy = QuantityType("quote_ccy")
