@@ -9,8 +9,8 @@ type (
 		SubAcct string        `json:"subAcct,omitempty"`
 		Label   string        `json:"label,omitempty"`
 		Mobile  string        `json:"mobile,omitempty"`
-		GAuth   bool          `json:"gAuth"`
-		Enable  bool          `json:"enable"`
+		GAuth   bool          `json:"gAuth,string"`
+		Enable  bool          `json:"enable,string"`
 		TS      okex.JSONTime `json:"ts"`
 	}
 	APIKey struct {

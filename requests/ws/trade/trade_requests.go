@@ -9,7 +9,7 @@ type (
 		Ccy        string            `json:"ccy,omitempty"`
 		ClOrdID    string            `json:"clOrdId,omitempty"`
 		Tag        string            `json:"tag,omitempty"`
-		ReduceOnly bool              `json:"reduceOnly,omitempty"`
+		ReduceOnly bool              `json:"reduceOnly,string,omitempty"`
 		Sz         string            `json:"sz"`
 		Px         string            `json:"px,omitempty"`
 		TdMode     okex.TradeMode    `json:"tdMode"`
@@ -32,6 +32,6 @@ type (
 		ReqID     string `json:"reqId,omitempty"`
 		NewSz     int64  `json:"newSz,omitempty,string"`
 		NewPx     string `json:"newPx,omitempty,string"`
-		CxlOnFail bool   `json:"cxlOnFail,omitempty"`
+		CxlOnFail bool   `json:"cxlOnFail,string,omitempty"`
 	}
 )

@@ -10,9 +10,9 @@ type (
 		MinWd       string `json:"minWd"`
 		MinFee      string `json:"minFee"`
 		MaxFee      string `json:"maxFee"`
-		CanDep      bool   `json:"canDep"`
-		CanWd       bool   `json:"canWd"`
-		CanInternal bool   `json:"canInternal"`
+		CanDep      bool   `json:"canDep,string"`
+		CanWd       bool   `json:"canWd,string"`
+		CanInternal bool   `json:"canInternal,string"`
 	}
 	Balance struct {
 		Ccy       string `json:"ccy"`
@@ -43,7 +43,7 @@ type (
 		Ccy      string           `json:"ccy"`
 		Chain    string           `json:"chain"`
 		CtAddr   string           `json:"ctAddr"`
-		Selected bool             `json:"selected"`
+		Selected bool             `json:"selected,string"`
 		To       okex.AccountType `json:"to,string"`
 		TS       okex.JSONTime    `json:"ts"`
 	}

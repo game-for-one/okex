@@ -11,7 +11,7 @@ type (
 		Ccy        string            `json:"ccy,omitempty"`
 		ClOrdID    string            `json:"clOrdId,omitempty"`
 		Tag        string            `json:"tag,omitempty"`
-		ReduceOnly bool              `json:"reduceOnly,omitempty"`
+		ReduceOnly bool              `json:"reduceOnly,string,omitempty"`
 		Sz         string            `json:"sz,string"`
 		Px         string            `json:"px,omitempty,string"`
 		TdMode     okex.TradeMode    `json:"tdMode"`
@@ -34,7 +34,7 @@ type (
 		ReqID     string `json:"reqId,omitempty"`
 		NewSz     int64  `json:"newSz,omitempty,string"`
 		NewPx     string `json:"newPx,omitempty,string"`
-		CxlOnFail bool   `json:"cxlOnFail,omitempty"`
+		CxlOnFail bool   `json:"cxlOnFail,string,omitempty"`
 	}
 	ClosePosition struct {
 		InstID  string            `json:"instId"`
@@ -77,7 +77,7 @@ type (
 		TgtCcy        okex.QuantityType  `json:"tgtCcy,omitempty"` // Only applicable to SPOT traded with Market buy conditional order. Default is quote_ccy for buy, base_ccy for sell
 		CloseFraction string             `json:"closeFraction,omitempty"`
 
-		ReduceOnly bool `json:"reduceOnly,omitempty"`
+		ReduceOnly bool `json:"reduceOnly,string,omitempty"`
 
 		TPSLOrder
 		TriggerOrder
@@ -93,7 +93,7 @@ type (
 		SlTriggerPxType string `json:"slTriggerPxType,omitempty"`
 		SlOrdPx         string `json:"slOrdPx,omitempty"`
 
-		CxlOnClosePos bool `json:"cxlOnClosePos,omitempty"`
+		CxlOnClosePos bool `json:"cxlOnClosePos,string,omitempty"`
 	}
 	TriggerOrder struct {
 		TriggerPx     string `json:"triggerPx,string,omitempty"`

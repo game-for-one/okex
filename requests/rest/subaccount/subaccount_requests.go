@@ -5,7 +5,7 @@ import "github.com/game-for-one/okex"
 type (
 	ViewList struct {
 		SubAcct string `json:"subAcct,omitempty"`
-		Enable  bool   `json:"enable,omitempty"`
+		Enable  bool   `json:"enable,string,omitempty"`
 		After   int64  `json:"after,omitempty,string"`
 		Before  int64  `json:"before,omitempty,string"`
 		Limit   int64  `json:"limit,omitempty,string"`

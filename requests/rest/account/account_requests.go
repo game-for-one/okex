@@ -44,7 +44,7 @@ type (
 	GetMaxAvailableTradeAmount struct {
 		Ccy        string         `json:"ccy,omitempty"`
 		InstID     string         `json:"instId"`
-		ReduceOnly bool           `json:"reduceOnly,omitempty"`
+		ReduceOnly bool           `json:"reduceOnly,string,omitempty"`
 		TdMode     okex.TradeMode `json:"tdMode"`
 	}
 	IncreaseDecreaseMargin struct {

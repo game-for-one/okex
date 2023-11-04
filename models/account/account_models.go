@@ -134,7 +134,7 @@ type (
 		Level      string            `json:"level"`
 		LevelTmp   string            `json:"levelTmp"`
 		AcctLv     string            `json:"acctLv"`
-		AutoLoan   bool              `json:"autoLoan"`
+		AutoLoan   bool              `json:"autoLoan,string"`
 		UID        string            `json:"uid"`
 		GreeksType okex.GreekType    `json:"greeksType"`
 		PosMode    okex.PositionType `json:"posMode"`
