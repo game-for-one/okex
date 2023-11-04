@@ -73,25 +73,32 @@ type (
 		Side          okex.OrderSide     `json:"side"`
 		PosSide       okex.PositionSide  `json:"posSide,omitempty"`
 		OrdType       okex.AlgoOrderType `json:"ordType"`
-		Sz            string             `json:"sz,omitempty"` // either this or closeFraction is required
-		ReduceOnly    bool               `json:"reduceOnly,omitempty"`
-		TgtCcy        okex.QuantityType  `json:"tgtCcy,omitempty"`        // Only applicable to SPOT traded with Market buy conditional order. Default is quote_ccy for buy, base_ccy for sell
-		CloseFraction string             `json:"closeFraction,omitempty"` // either this or sz is required
-		StopOrder
+		Sz            string             `json:"sz,omitempty"`
+		TgtCcy        okex.QuantityType  `json:"tgtCcy,omitempty"` // Only applicable to SPOT traded with Market buy conditional order. Default is quote_ccy for buy, base_ccy for sell
+		CloseFraction string             `json:"closeFraction,omitempty"`
+
+		ReduceOnly bool `json:"reduceOnly,omitempty"`
+
+		TPSLOrder
 		TriggerOrder
-		IcebergOrder
-		TWAPOrder
 		TrailingStopOrder
+		TWAPOrder
 	}
-	StopOrder struct {
-		TpTriggerPx string `json:"tpTriggerPx,string,omitempty"`
-		TpOrdPx     string `json:"tpOrdPx,string,omitempty"`
-		SlTriggerPx string `json:"slTriggerPx,string,omitempty"`
-		SlOrdPx     string `json:"slOrdPx,string,omitempty"`
+	TPSLOrder struct {
+		TpTriggerPx     string `json:"tpTriggerPx,omitempty"`
+		TpTriggerPxType string `json:"tpTriggerPxType,omitempty"`
+		TpOrdPx         string `json:"tpOrdPx,omitempty"`
+
+		SlTriggerPx     string `json:"slTriggerPx,omitempty"`
+		SlTriggerPxType string `json:"slTriggerPxType,omitempty"`
+		SlOrdPx         string `json:"slOrdPx,omitempty"`
+
+		CxlOnClosePos bool `json:"cxlOnClosePos,omitempty"`
 	}
 	TriggerOrder struct {
-		TriggerPx string `json:"triggerPx,string,omitempty"`
-		OrdPx     string `json:"ordPx,string,omitempty"`
+		TriggerPx     string `json:"triggerPx,string,omitempty"`
+		OrdPx         string `json:"ordPx,string,omitempty"`
+		TriggerPxType string `json:"triggerPxType,omitempty"`
 	}
 	IcebergOrder struct {
 		PxVar    string `json:"pxVar,string,omitempty"`
@@ -105,6 +112,7 @@ type (
 	}
 	TrailingStopOrder struct {
 		PercentRetracement string `json:"callbackRatio"` // 0.01 represents 1%
+		ActivePx           string `json:"activePx"`
 	}
 	CancelAlgoOrder struct {
 		InstID string `json:"instId"`
